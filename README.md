@@ -5,22 +5,22 @@ The native call binding libraries are in the lib directory.
 
 ## Status
 
-  - 01 first window              [x]
-  - 02 red triangle              [ ]
-  - 03 matrices                  [ ]
-  - 04 colored cube              [ ]    
-  - 05 textured cube             [ ]    
-  - 06 keyboard and mouse        [ ]         
-  - 07 model loading             [ ]    
-  - 08 basic shading             [ ]    
-  - 09 vbo indexing              [ ]   
-  - 10 transparency              [ ]   
-  - 11 2d fonts                  [ ]
-  - 12 extensions                [ ] 
-  - 13 normal mapping            [ ]     
-  - 14 render to texture         [ ]        
-  - 15 lightmaps                 [ ]
-  - 16 shadowmaps                [ ] 
-  - 17 rotations                 [ ]
-  - 18 billboards and particles  [ ]               
+  - [x] 01 first window              
+  - [ ] 02 red triangle              
+  - [ ] 03 matrices                  
+  - [ ] 04 colored cube                  
+  - [ ] 05 textured cube                 
+  - [ ] 06 keyboard and mouse                 
+  - [ ] 07 model loading                 
+  - [ ] 08 basic shading                 
+  - [ ] 09 vbo indexing                 
+  - [ ] 10 transparency                 
+  - [ ] 11 2d fonts                  
+  - [ ] 12 extensions                 
+  - [ ] 13 normal mapping                 
+  - [ ] 14 render to texture                 
+  - [ ] 15 lightmaps                 
+  - [ ] 16 shadowmaps                 
+  - [ ] 17 rotations                 
+  - [ ] 18 billboards and particles                 
 
