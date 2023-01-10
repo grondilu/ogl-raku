@@ -41,8 +41,10 @@ our sub clearColor(num32, num32, num32, num32) is native($gllib) is symbol('glCl
 our sub clear(int32) is native($gllib) is symbol('glClear') {*}
 
 our sub genVertexArrays(int32, uint32 is rw) is native($gllib) is symbol('glGenVertexArrays') {*}
+our sub deleteVertexArrays(int32, uint32 is rw) is native($gllib) is symbol('glDeleteVertexArrays') {*}
 our sub bindVertexArray(uint32)              is native($gllib) is symbol('glBindVertexArray') {*}
 our sub genBuffers(int32, uint32 is rw)      is native($gllib) is symbol('glGenBuffers') {*}
+our sub deleteBuffers(int32, uint32 is rw)   is native($gllib) is symbol('glDeleteBuffers') {*}
 our sub bindBuffer(int32, uint32) is native($gllib) is symbol('glBindBuffer') {*}
 our sub bufferData(int32, uint32, CArray[num64], int32) is native($gllib) is symbol('glBufferData') {*}
 
@@ -61,12 +63,14 @@ our sub createProgram(--> uint32)     is native($gllib) is symbol('glCreateProgr
 our sub attachShader(uint32, uint32)  is native($gllib) is symbol('glAttachShader') {*}
 our sub linkProgram (uint32)          is native($gllib) is symbol('glLinkProgram' ) {*}
 our sub useProgram  (uint32)          is native($gllib) is symbol('glUseProgram')   {*}
+our sub deleteProgram(uint32)         is native($gllib) is symbol('glDeleteProgram') {*}
 
 
 our sub vertexAttribPointer(uint32, int32, uint32, bool, uint32, Pointer)
   is native($gllib) is symbol('glVertexAttribPointer') {*}
 
-our sub enableVertexAttribArray(uint32) is native($gllib) is symbol('glEnableVertexAttribArray') {*}
+our sub  enableVertexAttribArray(uint32) is native($gllib) is symbol('glEnableVertexAttribArray') {*}
+our sub disableVertexAttribArray(uint32) is native($gllib) is symbol('glDisableVertexAttribArray') {*}
 
 
 our sub drawArrays(uint32, uint32, uint32)       is native($gllib) is symbol('glDrawArrays') {*}
