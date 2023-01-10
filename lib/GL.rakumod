@@ -40,12 +40,13 @@ our enum MatrixMode(
 our sub clearColor(num32, num32, num32, num32) is native($gllib) is symbol('glClearColor') {*}
 our sub clear(int32) is native($gllib) is symbol('glClear') {*}
 
-our sub genVertexArrays(int32, uint32 is rw) is native($gllib) is symbol('glGenVertexArrays') {*}
+our sub genVertexArrays(int32, uint32 is rw)    is native($gllib) is symbol('glGenVertexArrays') {*}
 our sub deleteVertexArrays(int32, uint32 is rw) is native($gllib) is symbol('glDeleteVertexArrays') {*}
-our sub bindVertexArray(uint32)              is native($gllib) is symbol('glBindVertexArray') {*}
-our sub genBuffers(int32, uint32 is rw)      is native($gllib) is symbol('glGenBuffers') {*}
-our sub deleteBuffers(int32, uint32 is rw)   is native($gllib) is symbol('glDeleteBuffers') {*}
-our sub bindBuffer(int32, uint32) is native($gllib) is symbol('glBindBuffer') {*}
+our sub bindVertexArray(uint32)                 is native($gllib) is symbol('glBindVertexArray') {*}
+
+our sub genBuffers(int32, uint32 is rw)                 is native($gllib) is symbol('glGenBuffers') {*}
+our sub deleteBuffers(int32, uint32 is rw)              is native($gllib) is symbol('glDeleteBuffers') {*}
+our sub bindBuffer(int32, uint32)                       is native($gllib) is symbol('glBindBuffer') {*}
 our sub bufferData(int32, uint32, CArray[num64], int32) is native($gllib) is symbol('glBufferData') {*}
 
 our sub createShader(uint32 --> uint32) is native($gllib) is symbol('glCreateShader') {*}
