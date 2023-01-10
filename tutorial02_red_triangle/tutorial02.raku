@@ -15,7 +15,7 @@ sub MAIN {
   GLFW::windowHint(GLFW::CONTEXT_VERSION_MINOR, 3);
   GLFW::windowHint(GLFW::OPENGL_PROFILE, GLFW::OPENGL_CORE_PROFILE);
 
-  my $window = GLFW::createWindow( 1024, 768, "Tutorial 01", Nil, Nil);
+  my $window = GLFW::createWindow( 1024, 768, "Tutorial 02", Nil, Nil);
 
   unless $window {
     GLFW::terminate() and
