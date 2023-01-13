@@ -1,4 +1,5 @@
 #!/usr/bin/env -S raku -I../lib
+use lib <../lib>;
 use GL;
 use GLM;
 use GLFW;
@@ -52,7 +53,16 @@ sub MAIN {
   GL::bindBuffer(GL::ARRAY_BUFFER, $vertexBuffer);
   GL::bufferData(GL::ARRAY_BUFFER, 4*@vertex-buffer-data.elems, @vertex-buffer-data, GL::STATIC_DRAW);
 
+  my $fps;
+  my Promise $main-loop .= new;
+  start {
+    until $main-loop.status ~~ Kept|Broken { sleep 1; $*ERR.printf("\rFPS=%5.0f", $fps); }
+  }.then({ $*ERR.printf("\n") });
+
   repeat {
+    LAST $main-loop.keep;
+    my $entry = ENTER now;
+    LEAVE $fps = 1/(now - $entry);
 
     GL::clear( GL::COLOR_BUFFER_BIT );
 
@@ -61,13 +71,13 @@ sub MAIN {
     GL::enableVertexAttribArray(0);
     GL::bindBuffer(GL::ARRAY_BUFFER, $vertexBuffer);
     GL::vertexAttribPointer(
-      0,
-      3,
-      GL::FLOAT,
-      GL::FALSE,
-      0,
-      0
-    );
+	0,
+	3,
+	GL::FLOAT,
+	GL::FALSE,
+	0,
+	0
+	);
 
     GL::drawArrays(GL::TRIANGLES, 0, 3);
 
