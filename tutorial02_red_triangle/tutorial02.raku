@@ -55,10 +55,16 @@ sub MAIN {
 
   my $fps;
   my Promise $main-loop .= new;
-  start {
-    until $main-loop.status ~~ Kept|Broken { sleep 1; $*ERR.printf("\rFPS=%5.0f", $fps); }
-  }.then({ $*ERR.printf("\n") });
+  my $fps-counter = start {
+    until $main-loop.status ~~ Kept|Broken {
+      sleep 1;
+      $*ERR.printf("\rFPS=%5.0f", $fps);
+    }
+    $*ERR.printf("\r");
+  }
+  LEAVE await $fps-counter;
 
+  # Main graphics loop
   repeat {
     LAST $main-loop.keep;
     my $entry = ENTER now;
@@ -94,5 +100,6 @@ sub MAIN {
   GL::deleteProgram($programID);
 
   GLFW::terminate();
+  
 
 }
