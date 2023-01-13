@@ -1,4 +1,5 @@
 #!/usr/bin/env -S raku -I../lib
+use lib <../lib>;
 use GL;
 use GLM;
 use GLFW;
