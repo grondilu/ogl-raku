@@ -78,3 +78,7 @@ our sub drawArrays(uint32, uint32, uint32)       is native($gllib) is symbol('gl
 our sub viewport(uint32, uint32, uint32, uint32) is native($gllib) is symbol('glViewport')   {*}
 
 our sub getError(--> uint32) is native($gllib) is symbol('glGetError') {*}
+
+our sub getUniformLocation(uint32, Str --> uint32) is native($gllib) is symbol('glGetUniformLocation') {*}
+
+our sub uniformMatrix4fv(uint32, uint32, Bool, CArray[num32]) is native($gllib) is symbol('glUniformMatrix4fv') {*}

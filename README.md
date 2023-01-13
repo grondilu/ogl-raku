@@ -7,7 +7,7 @@ The native call binding libraries are in the lib directory.
 
   - [x] 01 first window              
   - [x] 02 red triangle              
-  - [ ] 03 matrices                  
+  - [x] 03 matrices                  
   - [ ] 04 colored cube                  
   - [ ] 05 textured cube                 
   - [ ] 06 keyboard and mouse                 
