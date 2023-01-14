@@ -1,21 +1,76 @@
 unit module GL;
 use NativeCall;
 constant $gllib = 'GL';
+
 our constant COLOR_BUFFER_BIT = 0x00004000;
+our constant DEPTH_BUFFER_BIT = 0x00000100;
+
+our constant UNPACK_ALIGNMENT = 0x0CF5;
+
+our constant COMPRESSED_RGBA_S3TC_DXT1_EXT = 0x83F1;
+our constant COMPRESSED_RGBA_S3TC_DXT3_EXT = 0x83F2;
+our constant COMPRESSED_RGBA_S3TC_DXT5_EXT = 0x83F3;
 
 our constant    ARRAY_BUFFER = 0x8892;
 our constant     STATIC_DRAW = 0x88E4;
 our constant   VERTEX_SHADER = 0x8B31;
 our constant FRAGMENT_SHADER = 0x8B30;
+our constant      TEXTURE_2D = 0x0DE1;
 
 our constant SHADER_SOURCE_LENGTH = 0x8B88;
 our constant INFO_LOG_LENGTH = 0x8B84;
 our constant COMPILE_STATUS = 0x8B81;
 our constant    LINK_STATUS = 0x8B82;
 
-our constant FLOAT = 0x1406;
+our constant UNSIGNED_BYTE = 0x1401;
+our constant FLOAT         = 0x1406;
+
+our constant RGB   = 0x1907;
+our constant RGBA  = 0x1908;
+
+our constant NEAREST = 0x2600;
+
+our constant TEXTURE_MAG_FILTER = 0x2800;
+our constant TEXTURE_MIN_FILTER = 0x2801;
+
+our constant TEXTURE0	= 0x84C0;
+our constant TEXTURE1	= 0x84C1;
+our constant TEXTURE2	= 0x84C2;
+our constant TEXTURE3	= 0x84C3;
+our constant TEXTURE4	= 0x84C4;
+our constant TEXTURE5	= 0x84C5;
+our constant TEXTURE6	= 0x84C6;
+our constant TEXTURE7	= 0x84C7;
+our constant TEXTURE8	= 0x84C8;
+our constant TEXTURE9	= 0x84C9;
+our constant TEXTURE10	= 0x84CA;
+our constant TEXTURE11	= 0x84CB;
+our constant TEXTURE12	= 0x84CC;
+our constant TEXTURE13	= 0x84CD;
+our constant TEXTURE14	= 0x84CE;
+our constant TEXTURE15	= 0x84CF;
+our constant TEXTURE16	= 0x84D0;
+our constant TEXTURE17	= 0x84D1;
+our constant TEXTURE18	= 0x84D2;
+our constant TEXTURE19	= 0x84D3;
+our constant TEXTURE20	= 0x84D4;
+our constant TEXTURE21	= 0x84D5;
+our constant TEXTURE22	= 0x84D6;
+our constant TEXTURE23	= 0x84D7;
+our constant TEXTURE24	= 0x84D8;
+our constant TEXTURE25	= 0x84D9;
+our constant TEXTURE26	= 0x84DA;
+our constant TEXTURE27	= 0x84DB;
+our constant TEXTURE28	= 0x84DC;
+our constant TEXTURE29	= 0x84DD;
+our constant TEXTURE30	= 0x84DE;
+our constant TEXTURE31	= 0x84DF;
+
 our constant FALSE = 0;
 our constant TRUE  = 1;
+
+our constant BGR   = 0x80E0;
+our constant BGRA  = 0x80E1;
 
 our enum PrimitiveMode(
   POINTS         => 0x0000,
@@ -82,3 +137,25 @@ our sub getError(--> uint32) is native($gllib) is symbol('glGetError') {*}
 our sub getUniformLocation(uint32, Str --> uint32) is native($gllib) is symbol('glGetUniformLocation') {*}
 
 our sub uniformMatrix4fv(uint32, uint32, Bool, CArray[num32]) is native($gllib) is symbol('glUniformMatrix4fv') {*}
+
+
+our sub genTextures(uint32, uint32 is rw) is native($gllib) is symbol('glGenTextures') {*}
+our sub bindTexture(uint32, uint32)       is native($gllib) is symbol('glBindTexture') {*}
+our sub texImage2D(uint32 $target, int32 $level,
+  int32 $internalFormat, uint32 $width, uint32 $height, 
+  int32 $border, uint32 $format, uint32 $type,
+  Pointer[void]) is native($gllib) is symbol('glTexImage2D') {*}
+
+
+our sub texParameteri(uint32, uint16, uint16) is native($gllib) is symbol('glTexParameteri') {*}
+
+
+our sub activeTexture(uint16) is native($gllib) is symbol('glActiveTexture') {*}
+
+our sub uniform1i(int32, int32) is native($gllib) is symbol('glUniform1i') {*}
+
+our sub pixelStorei(uint16, int32) is native($gllib) is symbol('glPixelStorei') {*}
+
+our sub compressedTexImage2D(uint32 $target,
+  int32 $level, uint32 $internalFormat, uint32 $width, uint32 $height,
+  int32 $border, uint32 $imageSize, Pointer[void] $data) is native($gllib) is symbol('glCompressedTexImage2D') {*}
