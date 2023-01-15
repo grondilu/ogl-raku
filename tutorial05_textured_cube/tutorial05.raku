@@ -100,7 +100,7 @@ sub MAIN {
   GLFW::windowHint(GLFW::CONTEXT_VERSION_MINOR, 3);
   GLFW::windowHint(GLFW::OPENGL_PROFILE, GLFW::OPENGL_CORE_PROFILE);
 
-  my $window = GLFW::createWindow(1024, 768, "Tutorial 04 - Colored Cube", Nil, Nil);
+  my $window = GLFW::createWindow(1024, 768, "Tutorial 05 - Textured Cube", Nil, Nil);
   unless $window { fail "Failed to open GLFW window."; }
 
   GLFW::makeContextCurrent($window);
