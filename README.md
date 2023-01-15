@@ -10,7 +10,7 @@ The native call binding libraries are in the lib directory.
   - [x] 03 matrices                  
   - [x] 04 colored cube                  
   - [x] 05 textured cube                 
-  - [ ] 06 keyboard and mouse                 
+  - [x] 06 keyboard and mouse                 
   - [ ] 07 model loading                 
   - [ ] 08 basic shading                 
   - [ ] 09 vbo indexing                 

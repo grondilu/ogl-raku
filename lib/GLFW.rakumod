@@ -14,10 +14,19 @@ our constant CONTEXT_VERSION_MINOR = 0x00022003;
 our constant OPENGL_PROFILE        = 0x00022008;
 our constant OPENGL_CORE_PROFILE   = 0x00032001;
 
+our constant CURSOR      = 0x00033001;
 our constant STICKY_KEYS = 0x00033002;
+
+our constant CURSOR_NORMAL   = 0x00034001;
+our constant CURSOR_HIDDEN   = 0x00034002;
+our constant CURSOR_DISABLED = 0x00034003;
 
 our enum KEY_CODE (
   KEY_ESCAPE => 256,
+  KEY_RIGHT  => 262,
+  KEY_LEFT   => 263,
+  KEY_DOWN   => 264,
+  KEY_UP     => 265,
 );
 
 our sub init(--> int32)                                             is native($lib) is symbol('glfwInit')                  {*}
@@ -36,3 +45,10 @@ our sub getFramebufferSize(Window, uint32 is rw, uint32 is rw)        is native(
 our sub setInputMode(Window, int32, int32) is native($lib) is symbol('glfwSetInputMode') {*}
 
 our sub windowHint(int32, int32) is native($lib) is symbol('glfwWindowHint') {*}
+
+
+our sub getCursorPos(uint32, num64 is rw, num64 is rw) is native($lib) is symbol('glfwGetCursorPos') {*}
+our sub setCursorPos(uint32, num64      , num64)       is native($lib) is symbol('glfwSetCursorPos') {*}
+
+
+our sub getTime(--> num64)  is native($lib) is symbol('glfwGetTime') {*}
