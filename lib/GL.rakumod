@@ -5,6 +5,8 @@ constant $gllib = 'GL';
 our constant COLOR_BUFFER_BIT = 0x00004000;
 our constant DEPTH_BUFFER_BIT = 0x00000100;
 
+our constant DEPTH_TEST       = 0x0B71;
+
 our constant UNPACK_ALIGNMENT = 0x0CF5;
 
 our constant COMPRESSED_RGBA_S3TC_DXT1_EXT = 0x83F1;
@@ -102,7 +104,7 @@ our sub bindVertexArray(uint32)                 is native($gllib) is symbol('glB
 our sub genBuffers(int32, uint32 is rw)                 is native($gllib) is symbol('glGenBuffers') {*}
 our sub deleteBuffers(int32, uint32 is rw)              is native($gllib) is symbol('glDeleteBuffers') {*}
 our sub bindBuffer(int32, uint32)                       is native($gllib) is symbol('glBindBuffer') {*}
-our sub bufferData(int32, uint32, CArray[num64], int32) is native($gllib) is symbol('glBufferData') {*}
+our sub bufferData(int32, uint32, CArray[num32], int32) is native($gllib) is symbol('glBufferData') {*}
 
 our sub createShader(uint32 --> uint32) is native($gllib) is symbol('glCreateShader') {*}
 our sub deleteShader(uint32)            is native($gllib) is symbol('glDeleteShader') {*}
@@ -159,3 +161,5 @@ our sub pixelStorei(uint16, int32) is native($gllib) is symbol('glPixelStorei') 
 our sub compressedTexImage2D(uint32 $target,
   int32 $level, uint32 $internalFormat, uint32 $width, uint32 $height,
   int32 $border, uint32 $imageSize, Pointer[void] $data) is native($gllib) is symbol('glCompressedTexImage2D') {*}
+
+our sub enable is native($gllib) is symbol('glEnable') {*}

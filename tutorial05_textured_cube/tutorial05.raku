@@ -5,7 +5,7 @@ use GLM;
 use GLFW;
 use GLEW;
 use Shaders;
-use BMP;
+use Texture;
 
 constant @triangles = 
 <
@@ -144,20 +144,7 @@ sub MAIN {
   GL::bufferData(GL::ARRAY_BUFFER, 4*@uv-buffer-data.elems, @uv-buffer-data, GL::STATIC_DRAW);
 
   $*ERR.printf("loading texture...");
-  my uint32 $textureId;
-  GL::genTextures(1, $textureId);
-  GL::bindTexture(GL::TEXTURE_2D, $textureId);
-  GL::texImage2D(
-    GL::TEXTURE_2D,
-    0,
-    GL::RGB,
-    .shape[0], .shape[1], 0,
-    GL::BGR,
-    GL::UNSIGNED_BYTE,
-    nativecast(Pointer[void], CArray[uint8].new(.flat))
-  ) given BMP::load("uvtemplate.bmp".IO.slurp(:bin));
-  GL::texParameteri(GL::TEXTURE_2D, GL::TEXTURE_MAG_FILTER, GL::NEAREST);
-  GL::texParameteri(GL::TEXTURE_2D, GL::TEXTURE_MIN_FILTER, GL::NEAREST);
+  my uint32 $textureId = Texture::DDS::load "uvtemplate.DDS".IO;
   $*ERR.printf(" done\n");
 
   my $myTextureSampler  = GL::getUniformLocation $programID, "myTextureSampler";
