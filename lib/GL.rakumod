@@ -162,4 +162,4 @@ our sub compressedTexImage2D(uint32 $target,
   int32 $level, uint32 $internalFormat, uint32 $width, uint32 $height,
   int32 $border, uint32 $imageSize, Pointer[void] $data) is native($gllib) is symbol('glCompressedTexImage2D') {*}
 
-our sub enable is native($gllib) is symbol('glEnable') {*}
+our sub enable(uint32) is native($gllib) is symbol('glEnable') {*}
