@@ -20,7 +20,7 @@ our $view-matrix = GLM::lookAt eye => $position,
   center => direction($vertical-angle, $horizontal-angle),
   up => GLM::vec3 0, 1, 0;
 my $speed = 3;
-my $mouse-speed = .0005;
+my $mouse-speed = .005;
 
 our sub computeMatricesFromInput {
   state $last-time = now;
@@ -33,8 +33,11 @@ our sub computeMatricesFromInput {
 
   GLFW::setCursorPos($*window, (1024/2).Num, (768/2).Num);
 
-  $horizontal-angle += $mouse-speed*(1024/2 - $xpos);
-  $vertical-angle   += $mouse-speed*( 768/2 - $ypos);
+  # for some reason the cursor moved in the second frame???
+  if $++ > 2 {
+    $horizontal-angle += $mouse-speed*(1024/2 - $xpos);
+    $vertical-angle   += $mouse-speed*( 768/2 - $ypos);
+  }
 
   my $direction = direction $vertical-angle, $horizontal-angle;
   my $right = GLM::vec3
