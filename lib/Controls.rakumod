@@ -19,14 +19,14 @@ our $projection-matrix = GLM::perspective $initial-fov, 3/4, .1 .. 100;
 our $view-matrix = GLM::lookAt eye => $position,
   center => direction($vertical-angle, $horizontal-angle),
   up => GLM::vec3 0, 1, 0;
-my $speed = 0.001;
+my $speed = 3;
 my $mouse-speed = .0005;
 
 our sub computeMatricesFromInput {
-  state $last-time = GLFW::getTime;
-  
-  my $current-time = GLFW::getTime;
-  my $delta-time   = $current-time - $last-time;
+  state $last-time = now;
+  my $current-time = now;
+  my $delta-time = $current-time - $last-time;
+  LEAVE $last-time = $current-time;
 
   my num64 ($xpos, $ypos);
   GLFW::getCursorPos($*window, $xpos, $ypos);
