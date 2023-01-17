@@ -4,19 +4,21 @@ use GLFW;
 
 sub direction(Real $vertical-angle, Real $horizontal-angle) {
   GLM::vec3
-    cos($vertical-angle)*cos($horizontal-angle),
+    cos($vertical-angle)*sin($horizontal-angle),
     sin($vertical-angle),
-    cos($vertical-angle)*sin($horizontal-angle)
+    cos($vertical-angle)*cos($horizontal-angle)
   ;
 }
 
-my $horizontal-angle = 45°;
-my $vertical-angle   = 15°;
-my $position = 10*direction($vertical-angle, $horizontal-angle);
+my $horizontal-angle = 180°;
+my $vertical-angle   = 0°;
+my $position = GLM::vec3 0, 0, 5;
 my $initial-fov      = 45°;
 
 our $projection-matrix = GLM::perspective $initial-fov, 3/4, .1 .. 100;
-our $view-matrix = GLM::mat4 1;
+our $view-matrix = GLM::lookAt eye => $position,
+  center => direction($vertical-angle, $horizontal-angle),
+  up => GLM::vec3 0, 1, 0;
 my $speed = 0.001;
 my $mouse-speed = .0005;
 
@@ -49,6 +51,6 @@ our sub computeMatricesFromInput {
 
   my $fov = $initial-fov;
   $projection-matrix = GLM::perspective $initial-fov, 4/3, .1 .. 100;
-  $view-matrix = GLM::lookAt eye => $position, center => $position-$direction, :$up;
+  $view-matrix = GLM::lookAt eye => $position, center => $position+$direction, :$up;
 
 }
