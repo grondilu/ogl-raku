@@ -47,14 +47,8 @@ our package DDS {
     my $blockSize = ($format == GL::COMPRESSED_RGBA_S3TC_DXT1_EXT) ?? 8 !! 16; 
     my $offset = 0;
 
-    note "format is $format";
-    note "bufsize is $bufsize";
-    note "blockSize is $blockSize";
-    note "mipMapCount is $mipMapCount";
-
     loop (my int32 $level = 0; $level < $mipMapCount && ($width || $height); ++$level) {
       my $size = (($width+3) div 4)*(($height+3) div 4)*$blockSize; 
-      note "level $level/$mipMapCount: $width x $height, size is $size";
       GL::compressedTexImage2D
 	GL::TEXTURE_2D,
 	$level,
