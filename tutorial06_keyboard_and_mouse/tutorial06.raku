@@ -5,7 +5,7 @@ use GLM;
 use GLFW;
 use GLEW;
 use Shaders;
-use BMP;
+use Texture;
 use Controls;
 
 constant @triangles = 
@@ -49,42 +49,42 @@ constant @triangles =
 >.rotor(3);
 
 constant @uv = 
-  0.000059, 1-0.000004,
-  0.000103, 1-0.336048,
-  0.335973, 1-0.335903,
-  1.000023, 1-0.000013,
-  0.667979, 1-0.335851,
-  0.999958, 1-0.336064,
-  0.667979, 1-0.335851,
-  0.336024, 1-0.671877,
-  0.667969, 1-0.671889,
-  1.000023, 1-0.000013,
-  0.668104, 1-0.000013,
-  0.667979, 1-0.335851,
-  0.000059, 1-0.000004,
-  0.335973, 1-0.335903,
-  0.336098, 1-0.000071,
-  0.667979, 1-0.335851,
-  0.335973, 1-0.335903,
-  0.336024, 1-0.671877,
-  1.000004, 1-0.671847,
-  0.999958, 1-0.336064,
-  0.667979, 1-0.335851,
-  0.668104, 1-0.000013,
-  0.335973, 1-0.335903,
-  0.667979, 1-0.335851,
-  0.335973, 1-0.335903,
-  0.668104, 1-0.000013,
-  0.336098, 1-0.000071,
-  0.000103, 1-0.336048,
-  0.000004, 1-0.671870,
-  0.336024, 1-0.671877,
-  0.000103, 1-0.336048,
-  0.336024, 1-0.671877,
-  0.335973, 1-0.335903,
-  0.667969, 1-0.671889,
-  1.000004, 1-0.671847,
-  0.667979, 1-0.335851
+  0.000059, 0.000004,
+  0.000103, 0.336048,
+  0.335973, 0.335903,
+  1.000023, 0.000013,
+  0.667979, 0.335851,
+  0.999958, 0.336064,
+  0.667979, 0.335851,
+  0.336024, 0.671877,
+  0.667969, 0.671889,
+  1.000023, 0.000013,
+  0.668104, 0.000013,
+  0.667979, 0.335851,
+  0.000059, 0.000004,
+  0.335973, 0.335903,
+  0.336098, 0.000071,
+  0.667979, 0.335851,
+  0.335973, 0.335903,
+  0.336024, 0.671877,
+  1.000004, 0.671847,
+  0.999958, 0.336064,
+  0.667979, 0.335851,
+  0.668104, 0.000013,
+  0.335973, 0.335903,
+  0.667979, 0.335851,
+  0.335973, 0.335903,
+  0.668104, 0.000013,
+  0.336098, 0.000071,
+  0.000103, 0.336048,
+  0.000004, 0.671870,
+  0.336024, 0.671877,
+  0.000103, 0.336048,
+  0.336024, 0.671877,
+  0.335973, 0.335903,
+  0.667969, 0.671889,
+  1.000004, 0.671847,
+  0.667979, 0.335851
     ;
 
 sub MAIN {
@@ -115,6 +115,7 @@ sub MAIN {
   GLFW::setCursorPos $window, (1024/2).Num, (768/2).Num;
   
   GL::clearColor(0.Num, 0.Num, .4.Num, 0.Num);
+  GL::enable GL::DEPTH_TEST;
 
   GL::genVertexArrays(1, my uint32 $vertexArrayID);
   GL::bindVertexArray($vertexArrayID);
@@ -140,20 +141,7 @@ sub MAIN {
   GL::bufferData(GL::ARRAY_BUFFER, 4*@uv-buffer-data.elems, @uv-buffer-data, GL::STATIC_DRAW);
 
   $*ERR.printf("loading texture...");
-  my uint32 $textureId;
-  GL::genTextures(1, $textureId);
-  GL::bindTexture(GL::TEXTURE_2D, $textureId);
-  GL::texImage2D(
-    GL::TEXTURE_2D,
-    0,
-    GL::RGB,
-    .shape[0], .shape[1], 0,
-    GL::BGR,
-    GL::UNSIGNED_BYTE,
-    nativecast(Pointer[void], CArray[uint8].new(.flat))
-  ) given BMP::load("uvtemplate.bmp".IO.slurp(:bin));
-  GL::texParameteri(GL::TEXTURE_2D, GL::TEXTURE_MAG_FILTER, GL::NEAREST);
-  GL::texParameteri(GL::TEXTURE_2D, GL::TEXTURE_MIN_FILTER, GL::NEAREST);
+  my uint32 $textureId = Texture::DDS::load "uvtemplate.DDS".IO;
   $*ERR.printf(" done\n");
 
   my $myTextureSampler  = GL::getUniformLocation $programID, "myTextureSampler";
@@ -181,7 +169,6 @@ sub MAIN {
       Controls::computeMatricesFromInput;
       my $projection = $Controls::projection-matrix;
       my $view       = $Controls::view-matrix;
-      #my $view       = GLM::lookAt eye => GLM::vec3(4, 3, 3), center => GLM::vec3(0, 0, 0), up => GLM::vec3(0, 1, 0) ;
       my $model = GLM::mat4(1);
       my $MVP = $projection * $view * $model;
       GL::uniformMatrix4fv($matrixUniformLocation, 1, GL::FALSE, CArray[num32].new($MVP.flat));
